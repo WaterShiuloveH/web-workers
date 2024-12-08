@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const ServiceWorkerCalculation = () => {
@@ -20,10 +21,12 @@ const ServiceWorkerCalculation = () => {
           }
 
           //option 2
-          navigator.serviceWorker.ready.then((registration) => {
-            console.log('Service Worker is ready:', registration);
-            // Perform any actions when the service worker is ready
-          }).catch(console.error);
+          navigator.serviceWorker.ready
+            .then((registration) => {
+              console.log("Service Worker is ready:", registration);
+              // Perform any actions when the service worker is ready
+            })
+            .catch(console.error);
         })
         .catch(console.error);
 
@@ -52,7 +55,11 @@ const ServiceWorkerCalculation = () => {
         rowGap: "1rem",
       }}
     >
-      <h1>Service Worker Calculation Demo</h1>
+      <Link href="/">
+        <h1 style={{ cursor: "pointer", border: "2px orange solid" }}>
+          Service Worker Calculation Demo
+        </h1>
+      </Link>
       <input
         style={{
           color: "green",

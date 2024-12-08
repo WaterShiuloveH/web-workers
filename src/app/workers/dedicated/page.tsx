@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState, useRef } from "react";
 
 const DedicatedWorkerPage = () => {
@@ -40,7 +41,11 @@ const DedicatedWorkerPage = () => {
         rowGap: "1rem",
       }}
     >
-      <h1>Dedicated Web Worker Example</h1>
+      <Link href="/">
+        <h1 style={{ cursor: "pointer", border: "2px orange solid" }}>
+          Dedicated Web Worker Example
+        </h1>
+      </Link>
       <button
         style={{ border: "2px green solid", cursor: "pointer" }}
         onClick={startWorker}
