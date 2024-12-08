@@ -25,19 +25,23 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 ```
 pages/
 │
-├── workers/
-│   ├── dedicated.js        // Web Workers (Dedicated Workers)
-│   ├── service.js          // Service Workers
-│   ├── shared.js           // Shared Workers
-│   ├── worklet.js          // Worklets
+├── public/
+│   ├── workers/
+│       ├── dedicated.js        // Web Workers (Dedicated Workers)
+│       ├── service-worker.js          // Service Workers
+│       ├── shared-worker.js           // Shared Workers
+│       ├── worklets.js          // Worklets
 │
-├── _app.js
-├── index.js
-└── api/
+├── src
+│   ├── app
+│       ├── page.tsx/
 ```
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Key Components:
+### Dedicated Worker (dedicated.js): 
+    Handles isolated tasks for performance improvements.
+### Service Worker (service-worker.js): 
+    Used for background caching and offline capabilities.
+### Shared Worker (shared-worker.js): 
+    Used across multiple pages for shared tasks.
+### Worklets (worklets.js): 
+    Allows for advanced graphics operations in the browser, like drawing custom shapes on the page.
