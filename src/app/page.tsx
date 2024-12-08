@@ -28,7 +28,7 @@ const HomePage = () => {
           <Link href="/workers/shared">Shared Worker</Link>
         </li>
         <li style={{ border: "2px blue solid", cursor: "pointer" }}>
-          <Link href="/workers/worklet">Worklet</Link>
+          <Link href="/workers/worklets">Worklet</Link>
         </li>
       </ul>
     </div>
