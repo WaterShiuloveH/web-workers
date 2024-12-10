@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const ServiceWorkerCalculation = () => {
-  const [result, setResult] = useState<number | string>("");
+  const [result, setResult] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -21,18 +21,19 @@ const ServiceWorkerCalculation = () => {
           }
 
           //option 2
-          navigator.serviceWorker.ready
-            .then((registration) => {
-              console.log("Service Worker is ready:", registration);
-              // Perform any actions when the service worker is ready
-            })
-            .catch(console.error);
+          // navigator.serviceWorker.ready
+          //   .then((registration) => {
+          //     console.log("Service Worker is ready:", registration);
+          //     // Perform any actions when the service worker is ready
+          //   })
+          //   .catch(console.error);
         })
         .catch(console.error);
 
       navigator.serviceWorker.addEventListener("message", (event) => {
-        console.info("Received data from service worker:", event.data);
-        setResult(event.data);
+        console.info("Received data from service worker:", event);
+        const { data } = event;
+        setResult((prev) => prev + data);
       });
     }
   }, []);
@@ -65,6 +66,7 @@ const ServiceWorkerCalculation = () => {
           color: "green",
           backgroundColor: "white",
         }}
+        type="number"
         ref={inputRef}
         placeholder="Enter a number"
       />

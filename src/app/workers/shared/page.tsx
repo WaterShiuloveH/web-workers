@@ -2,18 +2,30 @@
 
 import Link from "next/link";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const SharedWorkerDemo = () => {
   const [response, setResponse] = useState("");
+  const [shared, setShared] = useState(false);
+  const sharedRef = useRef<SharedWorker | null>(null);
 
-  const handleMessage = () => {
-    const worker = new SharedWorker("/workers/shared-worker.js");
-    worker.port.onmessage = (event) => {
-      console.log("Worker connected", event);
-      setResponse(event.data);
-    };
-    worker.port.postMessage("Hello from Shared Worker!");
+  const handleStartShared = () => {
+    if (!sharedRef.current) {
+      sharedRef.current = new SharedWorker("/workers/shared-worker.js");
+      sharedRef.current.port.start(); // Activate the port
+    }
+    setShared(true);
+  };
+
+  const handleSendMessage = () => {
+    if (sharedRef.current) {
+      sharedRef.current.port.onmessage = (event) => {
+        console.log("Worker connected", event);
+        setResponse(event.data);
+      };
+
+      sharedRef.current.port.postMessage("Hello from Shared Worker!");
+    }
   };
 
   return (
@@ -31,11 +43,19 @@ const SharedWorkerDemo = () => {
         </h1>
       </Link>
       <button
-        style={{ border: "2px red solid", cursor: "pointer" }}
-        onClick={handleMessage}
+        style={{ border: "2px green solid", cursor: "pointer" }}
+        onClick={handleStartShared}
       >
-        Send Message
+        start shared
       </button>
+      {shared && (
+        <button
+          style={{ border: "2px red solid", cursor: "pointer" }}
+          onClick={handleSendMessage}
+        >
+          Send Message
+        </button>
+      )}
       <p>Response:</p>
       <p
         style={{

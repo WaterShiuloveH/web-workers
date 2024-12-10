@@ -14,7 +14,8 @@ const DedicatedWorkerPage = () => {
 
     // Listen for messages from the worker
     workerRef.current.onmessage = (e) => {
-      setResult((prev) => prev + e.data);
+      const { data } = e;
+      setResult((prev) => prev + data);
     };
 
     workerRef.current.onerror = (err) => {
@@ -52,6 +53,14 @@ const DedicatedWorkerPage = () => {
       >
         Start Worker
       </button>
+      {workerRef.current && (
+        <button
+          style={{ border: "2px blue solid", cursor: "pointer" }}
+          onClick={startWorker}
+        >
+          add 10
+        </button>
+      )}
       <button
         style={{ border: "2px red solid", cursor: "pointer" }}
         onClick={stopWorker}
